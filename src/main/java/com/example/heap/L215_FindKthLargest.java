@@ -17,7 +17,7 @@ public class L215_FindKthLargest {
         for (int num : nums) {
             heap.add(num);
             if (heap.size() > k) {
-                // 移除前面比第k个数小的 k - 1个数
+                // 移除前面比第k个数小的数
                 heap.poll();
             }
         }
