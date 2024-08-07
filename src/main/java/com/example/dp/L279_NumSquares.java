@@ -51,6 +51,8 @@ public class L279_NumSquares {
             return 1;
         }
         Integer[] nums = list.toArray(new Integer[0]);
+
+        // dp[i]表示i分解成完全平方数之后所需完全平方数的最少数量
         int[] dp = new int[n + 1];
         Arrays.fill(dp, n + 1);
         dp[0] = 0;
