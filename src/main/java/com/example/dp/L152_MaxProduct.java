@@ -6,7 +6,24 @@ package com.example.dp;
  */
 public class L152_MaxProduct {
     public static void main(String[] args) {
+        int[] nums = {-2, 0, -1};
+        System.out.println(maxProduct(nums));
+        System.out.println(maxProductPro(nums));
+    }
 
+    private static int maxProductPro(int[] nums) {
+        int max = Integer.MIN_VALUE, imax = 1, imin = 1;
+        for (int num : nums) {
+            if (num < 0) {
+                int tmp = imax;
+                imax = imin;
+                imin = tmp;
+            }
+            imax = Math.max(imax * num, num);
+            imin = Math.min(imin * num, num);
+            max = Math.max(imax, max);
+        }
+        return max;
     }
 
     private static int maxProduct(int[] nums) {
