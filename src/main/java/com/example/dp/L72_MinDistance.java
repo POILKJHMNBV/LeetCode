@@ -17,7 +17,7 @@ public class L72_MinDistance {
     }
 
     /**
-     * dp[i][j]: word1 前 i 个字符组成的资产转换成 word2 前 j 个字符组成子串所使用的最少操作数
+     * dp[i][j]: word1 前 i 个字符组成的子串转换成 word2 前 j 个字符组成子串所使用的最少操作数
      */
     private static int minDistance(String word1, String word2) {
         int len1 = word1.length();
