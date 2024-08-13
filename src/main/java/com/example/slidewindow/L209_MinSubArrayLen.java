@@ -16,19 +16,15 @@ public class L209_MinSubArrayLen {
         int len = nums.length;
         int res = 0;
         int begin = 0, end = 0;
-        int sum = nums[0];
-        while (begin < len) {
-            if (sum >= target) {
+        int sum = 0;
+        while (end < len) {
+            sum += nums[end];
+            while (sum >= target) {
                 res = res == 0 ? end - begin + 1 : Math.min(res, end - begin + 1);
                 sum -= nums[begin];
                 begin++;
-            } else {
-                end++;
-                if (end == len) {
-                    break;
-                }
-                sum += nums[end];
             }
+            end++;
         }
         return res;
     }

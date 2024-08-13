@@ -1,4 +1,4 @@
-package com.example.array;
+package com.example.slidewindow;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,12 +23,15 @@ public class L904_TotalFruit {
 
     private static int totalFruit(int[] fruits) {
         int n = fruits.length;
+
+        // 使用哈希表存储这个窗口内的数以及出现的次数
         Map<Integer, Integer> cnt = new HashMap<>();
 
         int left = 0, ans = 0;
         for (int right = 0; right < n; ++right) {
             cnt.put(fruits[right], cnt.getOrDefault(fruits[right], 0) + 1);
             while (cnt.size() > 2) {
+                // 水果种类超出篮子数量，去掉某种水果
                 cnt.put(fruits[left], cnt.get(fruits[left]) - 1);
                 if (cnt.get(fruits[left]) == 0) {
                     cnt.remove(fruits[left]);
