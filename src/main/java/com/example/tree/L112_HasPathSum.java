@@ -19,35 +19,22 @@ public class L112_HasPathSum {
     private static boolean traversal(TreeNode root, int count) {
 
         // 到达叶子结点，找到满足条件的路径
-        if (root.left == null && root.right == null && count == 0) {
-            return true;
-        }
-
-        // 到达叶子结点，未找到满足条件的路径
-        if (root.left == null && root.right == null && count != 0) {
-            return false;
+        if (root.left == null && root.right == null) {
+            return count == 0;
         }
 
         // 向左递归
         if (root.left != null) {
-            count -= root.left.val;
-            if (traversal(root.left, count)) {
+            if (traversal(root.left, count - root.left.val)) {
                 // 左子树找到符合条件的值
                 return true;
             }
-            // 回溯，恢复count的值
-            count += root.left.val;
         }
 
         // 向右递归
         if (root.right != null) {
-            count -= root.right.val;
-            if (traversal(root.right, count)) {
-                // 左子树找到符合条件的值
-                return true;
-            }
-            // 回溯，恢复count的值
-            count += root.right.val;
+            // 右子树找到符合条件的值
+            return traversal(root.right, count - root.right.val);
         }
         return false;
     }

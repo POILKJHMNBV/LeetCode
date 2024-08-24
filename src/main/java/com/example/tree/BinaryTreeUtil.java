@@ -173,4 +173,74 @@ public final class BinaryTreeUtil {
         }
         return res;
     }
+
+    /**
+     * 从前序与中序遍历序列构造二叉树
+     * @param preorder 前序遍历
+     * @param inorder 中序遍历
+     * @return 二叉树
+     */
+    public static TreeNode buildTreePI(int[] preorder, int[] inorder) {
+        if (preorder == null || inorder == null) {
+            throw new IllegalArgumentException();
+        }
+        int preLength = preorder.length;
+        int inLength = inorder.length;
+        if (preLength != inLength) {
+            throw new IllegalArgumentException();
+        }
+        return buildTreePI(preorder, 0, preLength - 1, inorder, 0, inLength - 1);
+    }
+
+    private static TreeNode buildTreePI(int[] preorder, int preLeft, int preRight,
+                                      int[] inorder, int inLeft, int inRight) {
+        if (preLeft > preRight || inLeft > inRight) {
+            return null;
+        }
+        TreeNode root = new TreeNode(preorder[preLeft]);
+        int pivot = inLeft;
+        while (inorder[pivot] != preorder[preLeft]) {
+            pivot++;
+        }
+        root.left = buildTreePI(preorder, preLeft + 1, preLeft + pivot - inLeft,
+                inorder, inLeft, pivot - 1);
+        root.right = buildTreePI(preorder, preLeft + pivot - inLeft + 1, preRight,
+                inorder, pivot + 1, inRight);
+        return root;
+    }
+
+
+    /**
+     * 从前序与中序遍历序列构造二叉树
+     * @param inorder 中序遍历
+     * @param postorder 后序遍历
+     * @return 二叉树
+     */
+    public static TreeNode buildTreeIP(int[] inorder, int[] postorder) {
+        if (inorder == null || postorder == null) {
+            throw new IllegalArgumentException();
+        }
+        if (inorder.length != postorder.length) {
+            throw new IllegalArgumentException();
+        }
+        return buildTreeIP(inorder, 0, inorder.length - 1,
+                postorder, 0, postorder.length - 1);
+    }
+
+    private static TreeNode buildTreeIP(int[] inorder, int inLeft, int inRight,
+                                        int[] postorder, int postLeft, int postRight) {
+        if (inLeft > inRight || postLeft > postRight) {
+            return null;
+        }
+        TreeNode root = new TreeNode(postorder[postRight]);
+        int pivot = inLeft;
+        while (inorder[pivot] != postorder[postRight]) {
+            pivot++;
+        }
+        root.left = buildTreeIP(inorder, inLeft, pivot - 1,
+                                postorder, postLeft, postLeft + pivot - inLeft - 1);
+        root.right = buildTreeIP(inorder, pivot + 1, inRight,
+                                postorder, postLeft + pivot - inLeft, postRight - 1);
+        return root;
+    }
 }
