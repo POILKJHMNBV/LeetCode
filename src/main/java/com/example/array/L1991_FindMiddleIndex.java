@@ -10,7 +10,7 @@ import java.util.Arrays;
  * 如果middleIndex == 0，左边部分的和定义为 0。类似的，如果middleIndex == nums.length - 1，右边部分的和定义为0。
  * 请你返回满足上述条件 最左边的middleIndex，如果不存在这样的中间位置，请你返回-1
  */
-public class FindMiddleIndex {
+public class L1991_FindMiddleIndex {
     public static void main(String[] args) {
         int[] nums = {2, 3, -1, 8, 4};
         int middleIndex = findMiddleIndex(nums);
