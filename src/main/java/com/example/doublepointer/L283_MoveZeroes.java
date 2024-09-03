@@ -23,6 +23,17 @@ public class L283_MoveZeroes {
         }
     }
 
+    private static void moveZeroesPro(int[] nums) {
+        for (int i = nums.length - 1; i >= 0; i--) {
+            if (nums[i] != 0) {
+                continue;
+            }
+            for (int j = i + 1; j < nums.length && nums[j] != 0; j++) {
+                swap(nums, j, j - 1);
+            }
+        }
+    }
+
     private static void swap(int[] nums, int left, int right) {
         int temp = nums[left];
         nums[left] = nums[right];
