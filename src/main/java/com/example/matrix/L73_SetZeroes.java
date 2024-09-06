@@ -12,6 +12,46 @@ public class L73_SetZeroes {
 
     }
 
+    private static void setZeroesPro(int[][] matrix) {
+        int rows = matrix.length, cols = matrix[0].length;
+        boolean row0Flag = false, col0Flag = false;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (i > 0 && j > 0 && matrix[i][j] == 0) {
+                    matrix[i][0] = matrix[0][j] = 0;
+                }
+                if (matrix[i][j] == 0) {
+                    if (i == 0) {
+                        row0Flag = true;
+                    }
+                    if (j == 0) {
+                        col0Flag = true;
+                    }
+                }
+            }
+        }
+
+        for (int i = 1; i < rows; i++) {
+            for (int j = 1; j < cols; j++) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+
+        if (row0Flag) {
+            for (int j = 0; j < cols; j++) {
+                matrix[0][j] = 0;
+            }
+        }
+
+        if (col0Flag) {
+            for (int i = 0; i < rows; i++) {
+                matrix[i][0] = 0;
+            }
+        }
+    }
+
     private static void setZeroes(int[][] matrix) {
         Set<Integer> rowSet = new HashSet<>();
         Set<Integer> colSet = new HashSet<>();
