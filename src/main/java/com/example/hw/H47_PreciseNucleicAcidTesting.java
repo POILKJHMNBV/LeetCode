@@ -1,5 +1,7 @@
 package com.example.hw;
 
+import com.example.graph.UnionFind;
+
 import java.util.*;
 
 /**
