@@ -16,6 +16,11 @@ public class L2542_MaxScore {
     }
 
 
+    /**
+     * 小根堆
+     * 初始化时间：O(n * log n)
+     * 空间：O(n)
+     */
     private static long maxScore(int[] nums1, int[] nums2, int k) {
         int n = nums1.length;
         Integer[] ids = new Integer[n];
