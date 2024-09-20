@@ -20,7 +20,7 @@ public class L435_EraseOverlapIntervals {
     }
 
     /**
-     * 时间：O(n)      空间：O(1)
+     * 时间：O(n * lon n)      空间：O(1)
      */
     private static int eraseOverlapIntervals(int[][] intervals) {
         if (intervals.length < 2) {
