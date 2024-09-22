@@ -11,7 +11,8 @@ package com.example.array;
  */
 public class L136_SingleNumber {
     public static void main(String[] args) {
-
+        int[] nums = {2, 2, 1};
+        System.out.println(singleNumber(nums));
     }
 
     private static int singleNumber(int[] nums) {
