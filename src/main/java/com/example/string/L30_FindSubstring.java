@@ -12,7 +12,46 @@ public class L30_FindSubstring {
         String s = "bcabbcaabbccacacbabccacaababcbb";
         String[] words = {"c", "b", "a", "c", "a", "a", "a", "b", "c"};
         System.out.println(findSubstring(s, words));
+        System.out.println(findSubstringPro(s, words));
     }
+
+    private static List<Integer> findSubstringPro(String s, String[] words) {
+        int len = s.length(), m = words.length, w = words[0].length();
+        Map<String, Integer> wordsMap = new HashMap<>();
+        for (String word : words) {
+            wordsMap.put(word, wordsMap.getOrDefault(word, 0) + 1);
+        }
+        List<Integer> res = new ArrayList<>();
+        for (int i = 0; i < w; i++) {
+            Map<String, Integer> temp = new HashMap<>();
+            for (int j = i; j + w <= len; j += w) {
+                String cur = s.substring(j, j + w);
+                temp.put(cur, temp.getOrDefault(cur, 0) + 1);
+                if (j >= i + (m * w)) {
+                    int idx = j - m * w;
+                    String prev = s.substring(idx, idx + w);
+                    if (temp.get(prev) == 1) {
+                        temp.remove(prev);
+                    } else {
+                        temp.put(prev, temp.get(prev) - 1);
+                    }
+                    if (!temp.getOrDefault(prev, 0).equals(wordsMap.getOrDefault(prev, 0))) {
+                        continue;
+                    }
+                }
+
+                if (!temp.getOrDefault(cur, 0).equals(wordsMap.getOrDefault(cur, 0))) {
+                    continue;
+                }
+
+                if (temp.equals(wordsMap)) {
+                    res.add(j - (m - 1) * w);
+                }
+            }
+        }
+        return res;
+    }
+
 
     private static List<Integer> findSubstring(String s, String[] words) {
         List<Integer> res = new ArrayList<>();
