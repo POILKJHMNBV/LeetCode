@@ -21,7 +21,7 @@ public class L37_SolveSudoku {
                     continue;
                 }
 
-                // 依次尝试填入每一个树
+                // 依次尝试填入每一个数字
                 for (char ch = '1'; ch <= '9'; ch++) {
                     if (isValid(board, i, j, ch)) {
                         // 尝试填入数字
