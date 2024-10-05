@@ -17,6 +17,9 @@ public class L68_FullJustify {
         list.forEach(System.out::println);
     }
 
+    /**
+     * 时间：O(n)  空间：O(1)
+     */
     private static List<String> fullJustify(String[] words, int maxWidth) {
         List<String> ans = new ArrayList<>();
         int n = words.length, i = 0, j = 0;
@@ -25,6 +28,7 @@ public class L68_FullJustify {
         while (j < n) {
             int len = -1;
             while (j < n) {
+                // 计算当前行单词的数量
                 len += words[j].length() + 1;
                 if (len > maxWidth) {
                     len -= (words[j].length() + 1);
@@ -33,14 +37,22 @@ public class L68_FullJustify {
                 j++;
             }
             StringBuilder sb = new StringBuilder();
+
+            // 计算单词间的间隙数量
             int gapCount = j - i - 1;
+
             // 处理最后一行或中间行的情况
             if (j < n && gapCount != 0) {
+                // 该行单词数量不止一个
+
+                // 需要插入的总的空格数量
                 int totalSpaceCount = maxWidth - (len - gapCount);
+
+                // 已经插入的空格数量
                 int curSpaceCount = 0;
                 while (i < j) {
                     sb.append(words[i++]);
-                    // 计算每个单词之间插入的空格数量
+                    // 计算每个单词之间插入的空格数量，按照贪心思路，尽可能均匀分配单词间的空格数量
                     int spaceLen = (int) Math.ceil((totalSpaceCount - curSpaceCount) * 1.0 / gapCount--);
                     curSpaceCount += spaceLen;
                     while (spaceLen-- > 0) {
@@ -48,6 +60,7 @@ public class L68_FullJustify {
                     }
                 }
             } else {
+                // 该行只有一个单词或为最后一行
                 while (i < j) {
                     sb.append(words[i++]);
                     if (sb.length() < maxWidth) {
