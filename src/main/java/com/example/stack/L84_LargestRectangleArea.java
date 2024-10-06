@@ -15,8 +15,9 @@ public class L84_LargestRectangleArea {
 
     /**
      * 单调栈
+     * 时间：O(n)  空间：O(n)
      */
-    private static int largestRectangleArea(int[] heights) {
+    public static int largestRectangleArea(int[] heights) {
         int len = heights.length;
         if (len == 1) {
             return heights[0];
@@ -28,6 +29,7 @@ public class L84_LargestRectangleArea {
         for (int i = 0; i < len; i++) {
             while (!stack.isEmpty() && heights[i] < heights[stack.peek()]) {
                 // 找到第一个严格小于栈顶元素高度的值，弹出栈顶元素，计算以栈顶元素为高度的柱形的面积
+                // 这个 while 很关键，因为有可能不止一个柱形的最大宽度可以被计算出来，需要继续计算
                 int topIndex = stack.pop();
 
                 // 向左搜寻第一个严格小于栈顶元素高度的值
@@ -51,6 +53,7 @@ public class L84_LargestRectangleArea {
                 stack.pop();
             }
 
+            // 注意这里宽度的计算和上面不同
             int width = stack.isEmpty() ? len : len - stack.peek() - 1;
             maxArea = Math.max(maxArea, width * heights[topIndex]);
         }
