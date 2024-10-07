@@ -98,6 +98,45 @@ public final class BinaryTreeUtil {
     }
 
     /**
+     * 中序遍历二叉树(Morris遍历)
+     */
+    public static List<Integer> lvrMorris(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        List<Integer> res = new ArrayList<>();
+        TreeNode cur = root, predecessor;
+        while (cur != null) {
+            // 如果左子树为空，则直接访问右子树
+            if (cur.left == null) {
+                res.add(cur.val);
+                cur = cur.right;
+            } else {
+
+                // 找到前驱节点（左子树中最右边的节点）
+                predecessor = cur.left;
+                while ((predecessor.right != null) && (predecessor.right != cur)) {
+                    predecessor = predecessor.right;
+                }
+
+                // 如果前驱节点的右指针为空，则将其指向当前节点
+                // 并遍历左子树
+                if (predecessor.right == null) {
+                    predecessor.right = cur;
+                    cur = cur.left;
+                } else {
+                    // 否则，恢复前驱节点的右指针，并访问当前节点
+                    // 然后遍历右子树
+                    predecessor.right = null;
+                    res.add(cur.val);
+                    cur = cur.right;
+                }
+            }
+        }
+        return res;
+    }
+
+    /**
      * 后序遍历二叉树(递归实现)
      */
     public static List<Integer> lrvRecursion(TreeNode root) {
