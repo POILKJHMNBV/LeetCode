@@ -1,18 +1,25 @@
 package com.example.list;
 
-class ListNode {
-    int val;
-    ListNode next;
+public class ListNode {
+    public int val;
+    public ListNode next;
 
-    ListNode() {
+    public ListNode() {
     }
 
-    ListNode(int val) {
+    public ListNode(int val) {
         this.val = val;
     }
 
-    ListNode(int val, ListNode next) {
+    public ListNode(int val, ListNode next) {
         this.val = val;
         this.next = next;
+    }
+
+    @Override
+    public String toString() {
+        return "ListNode{" +
+                "val=" + val +
+                '}';
     }
 }
