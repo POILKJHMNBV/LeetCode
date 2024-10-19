@@ -40,7 +40,7 @@ public class L139_WordBreak {
     }
 
     private static boolean wordBreakPro(String s, List<String> wordDict) {
-        // dp[i]表示字符串的前i个字符能否由wordDict组成
+        // dp[i]表示字符串的前i + 1个字符能否由wordDict组成
         boolean[] dp = new boolean[s.length()];
         for (int i = 0; i < s.length(); i++) {
             for (String word : wordDict) {
