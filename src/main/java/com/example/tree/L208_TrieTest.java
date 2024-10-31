@@ -28,6 +28,10 @@ class Trie {
         this.root = new TrieNode("");
     }
 
+    public TrieNode getRoot() {
+        return root;
+    }
+
     public void insert(String word) {
         char[] charArray = word.toCharArray();
         TrieNode curNode = this.root;
@@ -115,6 +119,14 @@ class Trie {
 
         public void setEnd(boolean end) {
             isEnd = end;
+        }
+
+        public TrieNode[] getNext() {
+            return next;
+        }
+
+        public boolean isEnd() {
+            return isEnd;
         }
     }
 }
