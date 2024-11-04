@@ -11,14 +11,19 @@ import java.util.Objects;
  */
 public class L57_Insert {
     public static void main(String[] args) {
-        int[][] intervals = {{1, 5}};
-        int[] newInterval = {0, 3};
+        int[][] intervals = {{1, 3}, {6, 9}};
+        int[] newInterval = {2, 5};
         int[][] res = insert(intervals, newInterval);
         for (int[] re : res) {
             System.out.println(Arrays.toString(re));
         }
     }
 
+    /**
+     * 插入区间
+     * 时间复杂度：O(n + log n)
+     * 空间复杂度：O(n)
+     */
     private static int[][] insert(int[][] intervals, int[] newInterval) {
         Objects.requireNonNull(intervals);
         Objects.requireNonNull(newInterval);
@@ -37,28 +42,34 @@ public class L57_Insert {
                 right = mid;
             }
         }
-        ArrayList<int[]> ans = new ArrayList<>(Arrays.asList(intervals));
-        if (right == len) {
-            if (ans.get(len - 1)[1] >= newInterval[0]) {
-                ans.get(len - 1)[1] = Math.max(ans.get(len - 1)[1], newInterval[1]);
-            } else {
-                ans.add(newInterval);
-            }
-        } else {
-            if (right != 0) {
-                if (ans.get(right - 1)[1] >= newInterval[0]) {
-                    ans.get(right - 1)[1] = Math.max(ans.get(right - 1)[1], newInterval[1]);
-                    right--;
-                } else {
-                    ans.add(right, newInterval);
-                }
-            } else {
-                ans.add(right, newInterval);
-            }
-            while (ans.size() != 1 && right < ans.size() - 1 && ans.get(right)[1]  >= ans.get(right + 1)[0]) {
-                ans.get(right)[1] = Math.max(ans.get(right)[1], ans.get(right + 1)[1]);
-                ans.remove(right + 1);
-            }
+        ArrayList<int[]> ans = new ArrayList<>();
+        if (right > 0 && intervals[right - 1][1] >= newInterval[0]) {
+            // 合并区间
+            intervals[right - 1][1] = Math.max(intervals[right - 1][1], newInterval[1]);
+        } else if (right == 0) {
+            ans.add(newInterval);
+        }
+
+        // 将right之前的区间加入ans
+        for (int i = 0; i < right; i++) {
+            ans.add(intervals[i]);
+        }
+
+        // 前面未合并，将 newInterval 加入ans
+        if (right > 0 && intervals[right - 1][1] < newInterval[0]) {
+            ans.add(newInterval);
+        }
+
+        // 不断合并区间
+        int[] lastInterval = ans.get(ans.size() - 1);
+        while (left < len && intervals[left][0] <= newInterval[1]) {
+            lastInterval[1] = Math.max(lastInterval[1], intervals[left][1]);
+            left++;
+        }
+
+        // 将left之后的区间加入ans
+        for (int i = left; i < len; i++) {
+            ans.add(intervals[i]);
         }
         return ans.toArray(new int[0][0]);
     }
