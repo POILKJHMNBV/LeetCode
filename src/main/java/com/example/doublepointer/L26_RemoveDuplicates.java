@@ -12,8 +12,22 @@ import java.util.Arrays;
 public class L26_RemoveDuplicates {
     public static void main(String[] args) {
         int[] nums = {0, 0};
-        System.out.println(removeDuplicates(nums));
+        System.out.println(removeDuplicatesPro(nums));
         System.out.println(Arrays.toString(nums));
+    }
+
+    /**
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
+     */
+    private static int removeDuplicatesPro(int[] nums) {
+        int k = 0;
+        for (int num : nums) {
+            if (k == 0 || num != nums[k - 1]) {
+                nums[k++] = num;
+            }
+        }
+        return k;
     }
 
     private static int removeDuplicates(int[] nums) {

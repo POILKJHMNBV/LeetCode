@@ -12,9 +12,35 @@ import java.util.List;
 public class L78_Subsets {
     public static void main(String[] args) {
         int[] nums = {1, 2, 3};
-        System.out.println(subsets(nums));
+        System.out.println(subsetsPro(nums));
     }
 
+    /**
+     * 位运算
+     * 时间复杂度：O(n * 2^n)
+     * 空间复杂度：O(n)
+     */
+    private static List<List<Integer>> subsetsPro(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> tmp = new ArrayList<>();
+        int len = nums.length;
+        for (int mask = 0; mask < (1 << len); mask++) {
+            tmp.clear();
+            for (int j = 0; j < len; j++) {
+                if ((mask & (1 << j)) != 0) {
+                    tmp.add(nums[j]);
+                }
+            }
+            res.add(new ArrayList<>(tmp));
+        }
+        return res;
+    }
+
+    /**
+     * 回溯
+     * 时间复杂度：O(n * 2^n)
+     * 空间复杂度：O(n)
+     */
     private static List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         if (nums == null) {
