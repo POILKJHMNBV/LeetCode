@@ -10,7 +10,38 @@ import java.util.ArrayDeque;
 public class L84_LargestRectangleArea {
     public static void main(String[] args) {
         int[] heights = {1, 2, 3, 4, 5};
-        System.out.println(largestRectangleArea(heights));
+        System.out.println(largestRectangleAreaPro(heights));
+    }
+
+    /**
+     * 单调栈
+     * 利用哨兵节点，避免边界判断
+     * 时间：O(n)  空间：O(n)
+     */
+    public static int largestRectangleAreaPro(int[] heights) {
+        int len = heights.length;
+        if (len == 1) {
+            return heights[0];
+        }
+        int maxArea = 0;
+
+        // 利用单调栈保存数组的索引
+        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        int[] newHeights = new int[len + 2];
+        System.arraycopy(heights, 0, newHeights, 1, len);
+        len = newHeights.length;
+        stack.push(0);
+
+        for (int i = 1; i < len; i++) {
+            while (newHeights[i] < newHeights[stack.peek()]) {
+                int topIndex = stack.pop();
+                int width = i - stack.peek() - 1;
+                int height = newHeights[topIndex];
+                maxArea = Math.max(maxArea, width * height);
+            }
+            stack.push(i);
+        }
+        return maxArea;
     }
 
     /**

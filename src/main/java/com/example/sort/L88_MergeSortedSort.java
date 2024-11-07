@@ -16,6 +16,31 @@ public class L88_MergeSortedSort {
         System.out.println(Arrays.toString(num1));
     }
 
+    /**
+     * 逆序双指针
+     * 时间复杂度：O(m + n)
+     * 空间复杂度：O(1)
+     */
+    private static void mergePro(int[] nums1, int m, int[] nums2, int n) {
+        int i = m - 1, j = n - 1, k = m + n - 1;
+        while (i >= 0 || j >= 0) {
+            if (i < 0) {
+                nums1[k--] = nums2[j--];
+            } else if (j < 0) {
+                nums1[k--] = nums1[i--];
+            } else if (nums2[j] >= nums1[i]) {
+                nums1[k--] = nums2[j--];
+            } else {
+                nums1[k--] = nums1[i--];
+            }
+        }
+    }
+
+    /**
+     * 合并两个有序数组
+     * 时间复杂度：O(m + n)
+     * 空间复杂度：O(m + n)
+     */
     private static void merge(int[] nums1, int m, int[] nums2, int n) {
         int[] temp = new int[m];
         System.arraycopy(nums1, 0, temp, 0, m);
