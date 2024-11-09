@@ -41,6 +41,7 @@ public class L224_SimpleCalculator {
                 }
             } else {
                 if (Character.isDigit(ch)) {
+                    // 取出连续的数字
                     int num = 0;
                     int j = i;
                     // 将从 i 位置开始后面的连续数字整体取出，加入 nums
@@ -50,6 +51,7 @@ public class L224_SimpleCalculator {
                     numStack.push(num);
                     i = j - 1;
                 } else {
+                    // 遇到符号，先计算前面的两个操作数，再将符号入栈
                     if (i > 0 && charArray[i - 1] == '(') {
                         numStack.push(0);
                     }
