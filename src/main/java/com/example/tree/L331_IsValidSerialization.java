@@ -10,7 +10,33 @@ import java.util.LinkedList;
  */
 public class L331_IsValidSerialization {
     public static void main(String[] args) {
+        String preorder = "1,#,#,#,#";
+        System.out.println(isValidSerializationPro(preorder));
+    }
 
+    /**
+     * 验证二叉树的前序序列化
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n)
+     */
+    private static boolean isValidSerializationPro(String preorder) {
+        String[] strings = preorder.split(",");
+        Deque<String> stack = new LinkedList<>();
+        for (String s : strings) {
+            if (stack.isEmpty() || !"#".equals(stack.peek()) || !"#".equals(s)) {
+                stack.push(s);
+                continue;
+            }
+
+            while (stack.size() >= 2 && "#".equals(stack.peek()) ) {
+                stack.pop();
+                if (!"#".equals(stack.peek())) {
+                    stack.pop();
+                }
+            }
+            stack.push(s);
+        }
+        return stack.size() == 1 && "#".equals(stack.peek());
     }
 
     /**
@@ -21,7 +47,7 @@ public class L331_IsValidSerialization {
     private static boolean isValidSerialization(String preorder) {
         int n = preorder.length();
         int i = 0;
-        Deque<Integer> stack = new LinkedList<Integer>();
+        Deque<Integer> stack = new LinkedList<>();
         stack.push(1);
         while (i < n) {
             if (stack.isEmpty()) {
