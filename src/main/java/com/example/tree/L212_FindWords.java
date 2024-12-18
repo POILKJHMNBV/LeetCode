@@ -138,6 +138,88 @@ public class L212_FindWords {
         System.out.println(words.length);
         System.out.println(resArray.length);
         System.out.println(res.size());
+
+        char[][] chars = {{'o', 'a', 'a', 'n'},
+                           {'e', 't', 'a', 'e'},
+                           {'i', 'h', 'k', 'r'},
+                           {'i', 'f', 'l', 'v'}};
+        List<String> resPro = findWordsPro(chars, new String[]{"oath","pea","eat","rain"});
+        System.out.println(resPro);
+    }
+
+    /**
+     * dfs + 字典树
+     */
+    private static List<String> findWordsPro(char[][] board, String[] words) {
+        TrieNode root = new TrieNode("");
+        Set<String> wordSet = new HashSet<>();
+        for (String word : words) {
+            // 构建字典树，每个节点代表一个单词的前缀
+            insert(root, word);
+            wordSet.add(word);
+        }
+        int m = board.length, n = board[0].length;
+        Set<String> res = new HashSet<>();
+        boolean[][] visited = new boolean[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                dfs(board, i, j, visited, res, wordSet, root);
+            }
+        }
+        return new ArrayList<>(res);
+    }
+
+    private static void dfs(char[][] board,
+                            int i, int j,
+                            boolean[][] visited,
+                            Set<String> res,
+                            Set<String> wordSet,
+                            TrieNode parentNode) {
+        int index = board[i][j] - 'a';
+        TrieNode curNode = parentNode.children[index];
+        if (curNode != null) {
+            if (wordSet.contains(curNode.word)) {
+                res.add(curNode.word);
+            }
+            visited[i][j] = true;
+            int[][] dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+            for (int[] dir : dirs) {
+                int newI = i + dir[0];
+                int newJ = j + dir[1];
+                if (inArea(newI, newJ, board) && !visited[newI][newJ]) {
+                    dfs(board, newI, newJ, visited, res, wordSet, curNode);
+                }
+            }
+            visited[i][j] = false;
+        }
+    }
+
+    private static boolean inArea(int i, int j, char[][] board) {
+        return i >= 0 && i < board.length && j >= 0 && j < board[0].length;
+    }
+
+    private static void insert(TrieNode root, String word) {
+        char[] charArray = word.toCharArray();
+        StringBuilder sb = new StringBuilder(root.word);
+        for (char ch : charArray) {
+            int index = ch - 'a';
+            sb.append(ch);
+            if (root.children[index] == null) {
+                root.children[index] = new TrieNode(sb.toString());
+            }
+            root = root.children[index];
+        }
+        root.isEnd = true;
+    }
+
+    static class TrieNode {
+        final TrieNode[] children;
+        final String word;
+        boolean isEnd;
+        public TrieNode(String word) {
+            children = new TrieNode[26];
+            this.word = word;
+        }
     }
 
     /**
