@@ -53,7 +53,7 @@ public class L306_IsAdditiveNumber {
         return isValid(num, start + sum.length(), second, sum);
     }
 
-    private static String addStrings(String num1, String num2) {
+    public static String addStrings(String num1, String num2) {
         StringBuilder sb = new StringBuilder();
         int carry = 0;
         int i = num1.length() - 1;
