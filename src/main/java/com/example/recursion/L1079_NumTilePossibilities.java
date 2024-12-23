@@ -13,6 +13,10 @@ public class L1079_NumTilePossibilities {
         System.out.println(numTilePossibilities(tiles));
     }
 
+    /**
+     * 时间：O(n * n!)
+     * 空间：O(n)
+     */
     private static int numTilePossibilities(String tiles) {
         char[] charArray = tiles.toCharArray();
         int n = charArray.length;
