@@ -1,5 +1,7 @@
 package com.example.num;
 
+import com.example.tree.TreeArray;
+
 /**
  * <p>L327:区间和的个数</p>
  * @author zhenwu
@@ -11,6 +13,22 @@ public class L327_CountRangeSum {
         int lower = 3;
         int upper = 5;
         System.out.println(countRangeSumPro(nums, lower, upper));
+        System.out.println(countRangeSumPlus(nums, lower, upper));
+    }
+
+    private static int countRangeSumPlus(int[] nums, int lower, int upper) {
+        TreeArray treeArray = new TreeArray(nums.length);
+        treeArray.initTree(nums);
+        int count = 0, n = nums.length;
+        for (int i = 0; i < n; ++i) {
+            for (int j = i; j < n; j++) {
+                long sum = treeArray.prefixSum(j + 1) - treeArray.prefixSum(i);
+                if (sum >= lower && sum <= upper) {
+                    ++count;
+                }
+            }
+        }
+        return count;
     }
 
     private static int countRangeSumPro(int[] nums, int lower, int upper) {

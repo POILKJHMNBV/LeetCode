@@ -1,7 +1,8 @@
 package com.example.sort;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.tree.TreeArray;
+
+import java.util.*;
 
 /**
  * <p>L315:计算右侧小于当前元素的个数</p>
@@ -11,10 +12,50 @@ import java.util.List;
  */
 public class L315_CountSmaller {
     public static void main(String[] args) {
-        int[] nums = {5, 2, 6, 1};
+        int[] nums = {5, 2, 2, 1};
         System.out.println(countSmaller(nums));
+        System.out.println(countSmallerPro(nums));
     }
 
+    /**
+     * 时间复杂度: O(nlogn)
+     * 空间复杂度: O(n)
+     */
+    private static List<Integer> countSmallerPro(int[] nums) {
+        LinkedList<Integer> res = new LinkedList<>();
+        int n = nums.length;
+        if (n < 1) {
+            return res;
+        }
+        TreeSet<Integer> treeSet = new TreeSet<>();
+        for (int num : nums) {
+            treeSet.add(num);
+        }
+
+        // 层级map，key为元素，value为层级
+        Map<Integer, Integer> rankMap = new HashMap<>();
+        int rank = 1;
+        for (Integer num : treeSet) {
+            rankMap.put(num, rank++);
+        }
+
+        TreeArray treeArray = new TreeArray(rank);
+        // 从后向前填表
+        for (int i = n - 1; i >= 0; i--) {
+            // 1、查询排名
+            rank = rankMap.get(nums[i]);
+            // 2、在树状数组排名的那个位置 + 1
+            treeArray.add(rank, 1);
+            // 3、查询一下小于等于“当前排名 - 1”的元素有多少
+            res.addFirst((int) treeArray.prefixSum(rank - 1));
+        }
+        return res;
+    }
+
+    /**
+     * 时间复杂度: O(nlogn)
+     * 空间复杂度: O(n)
+     */
     private static List<Integer> countSmaller(int[] nums) {
         List<Integer> res = new ArrayList<>();
         int n = nums.length;
