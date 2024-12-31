@@ -20,6 +20,21 @@ public class L784_LetterCasePermutation {
         return result;
     }
 
+    /**
+     * 位运算
+     */
+    private static void dfs(char[] charArray, int index, List<String> result) {
+        if (index == charArray.length) {
+            result.add(new String(charArray));
+            return;
+        }
+        dfs(charArray, index + 1, result);
+        if (Character.isLetter(charArray[index])) {
+            charArray[index] ^= 32;
+            dfs(charArray, index + 1, result);
+        }
+    }
+
     private static void dfs(char[] charArray, int index, String s, List<String> result) {
         if (index == charArray.length) {
             result.add(s);
