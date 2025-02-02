@@ -12,6 +12,14 @@ public class L1456_MaxVowels {
         System.out.println(maxVowels(s, k));
     }
 
+    /**
+     * 滑动窗口求最大元音字母数
+     * 滑动窗口大小为k，初始时窗口内元音字母数为count
+     * 向右滑动窗口，每次将右边界符合条件的字符加入到count中
+     * 向左滑动窗口，每次将左边界符合条件的字符从count中移除
+     * 时间复杂度: O(n)
+     * 空间复杂度: O(1)
+     */
     private static int maxVowels(String s, int k) {
         int count = 0;
         for (int i = 0; i < s.length() && i < k; i++) {

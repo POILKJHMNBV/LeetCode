@@ -14,6 +14,12 @@ public class L643_FindMaxAverage {
         System.out.println(findMaxAverage(nums, k));
     }
 
+    /**
+     * 滑动窗口求最大平均值
+     * 滑动窗口大小为k，求最大平均值
+     * 时间复杂度: O(n)
+     * 空间复杂度: O(1)
+     */
     private static double findMaxAverage(int[] nums, int k) {
         int sum = Arrays.stream(nums, 0, k).sum();
         int l = 0, r = k - 1;
