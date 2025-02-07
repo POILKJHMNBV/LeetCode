@@ -1,4 +1,4 @@
-package com.example.string;
+package com.example.slidewindow;
 
 import java.util.*;
 
@@ -15,6 +15,11 @@ public class L30_FindSubstring {
         System.out.println(findSubstringPro(s, words));
     }
 
+    /**
+     * 滑动窗口 + 哈希表
+     * 时间复杂度：O(m + w * len)
+     * 空间复杂度：O(m * w)
+     */
     private static List<Integer> findSubstringPro(String s, String[] words) {
         int len = s.length(), m = words.length, w = words[0].length();
         Map<String, Integer> wordsMap = new HashMap<>();
