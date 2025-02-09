@@ -13,6 +13,27 @@ public class L3_LengthOfLongestSubstring {
         System.out.println(lengthOfLongestSubstring(s));
     }
 
+    /**
+     * 滑动窗口解法
+     * 时间复杂度: O(n)
+     * 空间复杂度: O(1)
+     */
+    private static int lengthOfLongestSubstringPro(String s) {
+        int length = s.length(), maxLen = 0;
+        char[] chars = s.toCharArray();
+        int[] cnt = new int[128];
+        for (int r = 0, l = 0; r < length; r++) {
+            char ch = chars[r];
+            cnt[ch]++;
+            while (cnt[ch] > 1) {
+                // 有重复字符，缩小窗口
+                cnt[chars[l++]]--;
+            }
+            maxLen = Math.max(maxLen, r - l + 1);
+        }
+        return maxLen;
+    }
+
     private static int lengthOfLongestSubstringPlus(String s) {
         int length = s.length();
         if (length < 2) {

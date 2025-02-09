@@ -21,6 +21,10 @@ public class L220_ContainsNearbyAlmostDuplicate {
         System.out.println(containsNearbyAlmostDuplicate(nums, indexDiff, valueDiff));
     }
 
+    /**
+     * 时间复杂度：O(n logk)，其中 n 是数组的长度，k 是滑动窗口的大小。
+     * 空间复杂度：O(k)，其中 k 是滑动窗口的大小。
+     */
     private static boolean containsNearbyAlmostDuplicate(int[] nums, int indexDiff, int valueDiff) {
         TreeSet<Long> treeSet = new TreeSet<>();
         int length = nums.length;
@@ -34,7 +38,9 @@ public class L220_ContainsNearbyAlmostDuplicate {
             if (right != null && (right - num) <= valueDiff) {
                 return true;
             }
-            treeSet.add(num);
+            if (!treeSet.add(num)) {
+                return true;
+            }
             if (i >= indexDiff) {
                 treeSet.remove((long) nums[i - indexDiff]);
             }
