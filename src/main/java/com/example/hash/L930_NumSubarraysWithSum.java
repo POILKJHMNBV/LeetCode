@@ -7,12 +7,36 @@ import java.util.Map;
  * <p>L930:和相同的二元子数组</p>
  * @author zhenwu
  * @date 2025/1/14 20:35
+ * @see L560_SubarraySum
  */
 public class L930_NumSubarraysWithSum {
     public static void main(String[] args) {
         int[] nums = {0, 0, 0, 0, 0};
         int goal = 0;
         System.out.println(numSubarraysWithSum(nums, goal));
+        System.out.println(numSubarraysWithSumPro(nums, goal));
+    }
+
+    /**
+     * 滑动窗口
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
+     */
+    private static int subarraySumPro(int[] nums, int k) {
+        int count = 0;
+        int sum1 = 0, sum2 = 0;
+        for (int l1 = 0, l2 = 0, r = 0, n = nums.length; r < n; r++) {
+            sum1 += nums[r];
+            while (l1 <= r && sum1 > k) {
+                sum1 -= nums[l1++];
+            }
+            sum2 += nums[r];
+            while (l2 <= r && sum2 >= k) {
+                sum2 -= nums[l2++];
+            }
+            count += l2 - l1;
+        }
+        return count;
     }
 
     /**

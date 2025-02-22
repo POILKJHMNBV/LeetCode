@@ -18,6 +18,8 @@ public class L560_SubarraySum {
     /**
      * 前缀和+哈希表
      * 转化未求取前缀和之差为 K 的子数组个数
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n)
      */
     public static int subarraySum(int[] nums, int k) {
         // key-前缀和  value-前缀和出现的次数
