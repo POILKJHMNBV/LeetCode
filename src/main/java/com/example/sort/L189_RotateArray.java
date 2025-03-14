@@ -18,6 +18,24 @@ public class L189_RotateArray {
         System.out.println(Arrays.toString(nums));
     }
 
+    private static void rotatePro(int[] nums, int k) {
+        int n = nums.length, m = k % n;
+        if (m == 0) {
+            return;
+        }
+        swap(nums, 0, n - 1);
+        swap(nums, 0, m - 1);
+        swap(nums, m, n - 1);
+    }
+
+    private static void swap(int[] nums, int i, int j) {
+        for (; i < j ; i++, j--) {
+            int tmp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = tmp;
+        }
+    }
+
     private static void rotate(int[] nums, int k) {
         int len = nums.length;
         int tempLen = k % len;
