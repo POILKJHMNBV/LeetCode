@@ -10,6 +10,9 @@ public class L744_NextGreatestLetter {
 
     }
 
+    /**
+     * 时间：O(log n)  空间：O(1)
+     */
     private static char nextGreatestLetter(char[] letters, char target) {
         int length = letters.length;
         if (target >= letters[length - 1]) {
