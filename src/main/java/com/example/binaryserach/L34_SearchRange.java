@@ -13,8 +13,38 @@ import java.util.Arrays;
 public class L34_SearchRange {
     public static void main(String[] args) {
         int[] nums = {5, 7, 7, 8, 8, 10};
-        int target = 8;
+        int target = -1;
         System.out.println(Arrays.toString(searchRange(nums, target)));
+        System.out.println(Arrays.toString(searchRangePro(nums, target)));
+    }
+
+    /**
+     * 时间：O(log n)
+     * 空间：O(1)
+     */
+    private static int[] searchRangePro(int[] nums, int target) {
+        if (nums.length == 0) {
+            return new int[]{-1, -1};
+        }
+        int firstIdx = leftBound(nums, target);
+        if (firstIdx == nums.length || nums[firstIdx] != target) {
+            return new int[]{-1, -1};
+        }
+        int lastIdx = leftBound(nums, target + 1) - 1;
+        return new int[]{firstIdx, lastIdx};
+    }
+
+    private static int leftBound(int[] nums, int target) {
+        int l = 0, r = nums.length - 1;
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+            if (nums[m] < target) {
+                l = m + 1;
+            } else {
+                r = m - 1;
+            }
+        }
+        return l;
     }
 
     private static int[] searchRange(int[] nums, int target) {
