@@ -14,6 +14,38 @@ public class L3488_SolveQueries {
     }
 
     /**
+     * 时间：O(n + q)，其中 n 是 nums 的长度，q 是 queries 的长度。
+     * 空间：O(n)
+     */
+    private static List<Integer> solveQueriesPro(int[] nums, int[] queries) {
+        Map<Integer, Integer> indexMap = new HashMap<>();
+        int n = nums.length;
+        // left 和 right 数组分别记录当前位置元素左右两边离它最近元素的索引
+        int[] left = new int[n], right = new int[n];
+        for (int i = -n; i < n; i++) {
+            if (i >= 0) {
+                left[i] = indexMap.get(nums[i]);
+            }
+            indexMap.put(nums[(i + n) % n], i);
+        }
+
+        indexMap.clear();
+        for (int i = 2 * n - 1; i >= 0; i--) {
+            if (i < n) {
+                right[i] = indexMap.get(nums[i]);
+            }
+            indexMap.put(nums[i % n], i);
+        }
+
+        List<Integer> ans = new ArrayList<>(queries.length);
+        for (int index : queries) {
+            int l = left[index], r = right[index];
+            ans.add(index - l == n ? -1 : Math.min(index - l, r - index));
+        }
+        return ans;
+    }
+
+    /**
      * 时间：O(n + q log n)，其中 n 是 nums 的长度，q 是 queries 的长度。每次二分需要 O(log n) 的时间。
      * 空间：O(n)
      */
