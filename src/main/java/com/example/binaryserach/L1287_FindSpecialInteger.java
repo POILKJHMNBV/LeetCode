@@ -12,6 +12,35 @@ public class L1287_FindSpecialInteger {
     }
 
     /**
+     * 时间：O(log n)
+     * 空间：O(1)
+     */
+    private static int findSpecialIntegerPro(int[] arr) {
+        int n = arr.length, span = n / 4 + 1;
+        for (int i = 0; i < n; i += span) {
+            int start = leftBound(arr, arr[i]);
+            int end = leftBound(arr, arr[i] + 1);
+            if (end - start >= span) {
+                return arr[i];
+            }
+        }
+        return -1;
+    }
+
+    private static int leftBound(int[] arr, int target) {
+        int l = 0, r = arr.length - 1;
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+            if (arr[m] < target) {
+                l = m + 1;
+            } else {
+                r = m - 1;
+            }
+        }
+        return l;
+    }
+
+    /**
      * 时间：O(n)
      * 空间：O(1)
      */
