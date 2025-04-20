@@ -10,7 +10,52 @@ import java.util.PriorityQueue;
 public class L3296_MinNumberOfSeconds {
 
     public static void main(String[] args) {
+        int mountainHeight = 4;
+        int[] workerTimes = {2, 1, 1};
+        System.out.println(minNumberOfSecondsPro(mountainHeight, workerTimes));
+    }
 
+    /**
+     * 时间：O(log x * n * log m)，其中 x 是 maxT * mountainHeight * (mountainHeight + 1) / 2，n 是 workerTimes 的长度，m 是 mountainHeight
+     * 空间：O(1)
+     */
+    private static long minNumberOfSecondsPro(int mountainHeight, int[] workerTimes) {
+        int maxT = workerTimes[0];
+        for (int workerTime : workerTimes) {
+            maxT = Math.max(maxT, workerTime);
+        }
+        long left = 0, right = (long) maxT * mountainHeight * (mountainHeight + 1) / 2;
+        while (left <= right) {
+            long mid = left + (right - left) / 2;
+            if (calTotalHeightReduced(mid, workerTimes, mountainHeight) < mountainHeight) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return left;
+    }
+
+    private static long calTotalHeightReduced(long time, int[] workerTimes, int mountainHeight) {
+        long totalHeight = 0;
+        for (int workerTime : workerTimes) {
+            totalHeight += calHeightReduced(time, workerTime, mountainHeight);
+        }
+        return totalHeight;
+    }
+
+    private static long calHeightReduced(long time, int workerTime, int mountainHeight) {
+        long l = 0, r = mountainHeight;
+        while (l <= r) {
+            long m = l + (r - l) / 2;
+            long requiredTime = workerTime * m * (m + 1) / 2;
+            if (requiredTime > time) {
+                r = m - 1;
+            } else {
+                l = m + 1;
+            }
+        }
+        return r;
     }
 
     /**
