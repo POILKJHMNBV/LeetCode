@@ -13,6 +13,31 @@ public class L475_FindRadius {
     }
 
     /**
+     * 时间：O((n * logn + m * log m + m)，其中 m 是数组 houses 的长度，n 是数组 heaters 的长度。
+     * 空间：O(1)
+     */
+    private static int findRadiusPro(int[] houses, int[] heaters) {
+        Arrays.sort(houses);
+        Arrays.sort(heaters);
+        int j = 0, ans = 0;
+        for (int house : houses) {
+            while (j < heaters.length && heaters[j] < house) {
+                j++;
+            }
+            int d;
+            if (j == 0) {
+                d = heaters[0] - house;
+            } else if (j == heaters.length) {
+                d = house - heaters[j - 1];
+            } else {
+                d = Math.min(heaters[j] - house, house - heaters[j - 1]);
+            }
+            ans = Math.max(ans, d);
+        }
+        return ans;
+    }
+
+    /**
      * 时间：O((n+m)logn)，其中 m 是数组 houses 的长度，n 是数组 heaters 的长度。
      * 空间：O(logn)
      */
