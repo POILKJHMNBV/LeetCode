@@ -15,6 +15,10 @@ public class L3310_RemainingMethods {
 
     }
 
+    /**
+     * 时间复杂度：O(n + m)
+     * 空间复杂度：O(n + m)
+     */
     private static List<Integer> remainingMethods(int n, int k, int[][] invocations) {
         Map<Integer, List<Integer>> graph = new HashMap<>();
         for (int[] invocation : invocations) {
