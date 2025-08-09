@@ -17,6 +17,7 @@ public class L802_EventualSafeNodes {
     }
 
     /**
+     * 反向拓扑排序
      * 时间复杂度：O(n + m)
      * 空间复杂度：O(n + m)
      */
@@ -26,7 +27,7 @@ public class L802_EventualSafeNodes {
         int[] outdegrees = new int[n];
         List<Integer>[] prevArr = new List[n];
         for (int i = 0; i < n; i++) {
-            prevArr[i] = new ArrayList<Integer>();
+            prevArr[i] = new ArrayList<>();
         }
         for (int i = 0; i < n; i++) {
             int[] adjacent = graph[i];
@@ -35,7 +36,7 @@ public class L802_EventualSafeNodes {
                 prevArr[next].add(i);
             }
         }
-        Queue<Integer> queue = new ArrayDeque<Integer>();
+        Queue<Integer> queue = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
             if (outdegrees[i] == 0) {
                 queue.offer(i);
