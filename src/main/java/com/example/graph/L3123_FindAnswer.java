@@ -24,7 +24,7 @@ public class L3123_FindAnswer {
             graph[edges[i][0]].add(new int[]{edges[i][1], edges[i][2], i});
             graph[edges[i][1]].add(new int[]{edges[i][0], edges[i][2], i});
         }
-        int[] dist = dijkstra(n, graph);
+        int[] dist = GraphUtil.dijkstra(n, graph);
         boolean[] ans = new boolean[edges.length];
         if (dist[n - 1] == Integer.MAX_VALUE) {
             return ans;
@@ -52,30 +52,4 @@ public class L3123_FindAnswer {
         return ans;
     }
 
-    /**
-     * dijkstra算法求出源点到其他点的最短距离
-     */
-    private static int[] dijkstra(int n, List<int[]>[] graph) {
-        int[] dist = new int[n];
-        Arrays.fill(dist, Integer.MAX_VALUE);
-        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(o -> o[1]));
-        dist[0] = 0;
-        pq.offer(new int[]{0, 0});
-        while (!pq.isEmpty()) {
-            int[] point = pq.poll();
-            int x = point[0], d = point[1];
-            if (d > dist[x]) {
-                // 重复入队的节点不需要重复计算距离
-                continue;
-            }
-            for (int[] next : graph[x]) {
-                int y = next[0], w = next[1];
-                if (dist[y] > dist[x] + w) {
-                    dist[y] = dist[x] + w;
-                    pq.offer(new int[]{y, dist[y]});
-                }
-            }
-        }
-        return dist;
-    }
 }
