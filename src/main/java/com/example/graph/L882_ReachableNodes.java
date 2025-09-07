@@ -14,6 +14,11 @@ public class L882_ReachableNodes {
 
     }
 
+    /**
+     * dijkstra
+     * 时间复杂度: O(n + m * log m)
+     * 空间复杂度: O(n + m)
+     */
     private static int reachableNodes(int[][] edges, int maxMoves, int n) {
         List<int[]>[] graph = new List[n];
         Arrays.setAll(graph, i -> new ArrayList<>());

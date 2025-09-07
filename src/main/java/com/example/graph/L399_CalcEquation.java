@@ -71,13 +71,14 @@ public class L399_CalcEquation {
         }
         return ret;
     }
-}
-class Pair {
-    int index;
-    double value;
 
-    Pair(int index, double value) {
-        this.index = index;
-        this.value = value;
+    private static class Pair {
+        int index;
+        double value;
+
+        Pair(int index, double value) {
+            this.index = index;
+            this.value = value;
+        }
     }
 }
