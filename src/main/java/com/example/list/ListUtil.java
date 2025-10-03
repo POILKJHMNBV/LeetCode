@@ -2,6 +2,10 @@ package com.example.list;
 
 public class ListUtil {
     public static void printList(ListNode head) {
+        if (head == null) {
+            System.out.println("[]");
+            return;
+        }
         StringBuilder stringBuilder = new StringBuilder("[");
         while (head != null) {
             stringBuilder.append(head.val).append(",");
