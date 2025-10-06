@@ -27,4 +27,18 @@ public class ListUtil {
         }
         return dummyNode.next;
     }
+
+
+    public static ListNode reverseList(ListNode head) {
+        ListNode dummyNode = new ListNode();
+        dummyNode.next = head;
+        ListNode nextNode = head.next;
+        while (nextNode != null) {
+            head.next = nextNode.next;
+            nextNode.next = dummyNode.next;
+            dummyNode.next = nextNode;
+            nextNode = head.next;
+        }
+        return dummyNode.next;
+    }
 }

@@ -25,18 +25,6 @@ public class L206_ReverseList {
     }
 
     private static ListNode reverseListPro(ListNode head) {
-        if (head == null) {
-            return null;
-        }
-        ListNode dummyNode = new ListNode();
-        dummyNode.next = head;
-        ListNode nextNode = head.next;
-        while (nextNode != null) {
-            head.next = nextNode.next;
-            nextNode.next = dummyNode.next;
-            dummyNode.next = nextNode;
-            nextNode = head.next;
-        }
-        return dummyNode.next;
+       return ListUtil.reverseList(head);
     }
 }
