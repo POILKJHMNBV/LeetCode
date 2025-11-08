@@ -10,7 +10,7 @@ import java.util.Set;
  * @author zhenwu
  * @date 2025/11/7 21:35
  */
-public class L110_DelNodes {
+public class L1110_DelNodes {
     public static void main(String[] args) {
 
     }
